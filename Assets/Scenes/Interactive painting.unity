@@ -2523,6 +2523,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7609b84b7995e242a03effb95d088d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  chairSource: {fileID: 8300000, guid: b26020c2e2558f942a833a16734b244b, type: 3}
+  lampSource: {fileID: 0}
   chair: {fileID: 1340905463}
   oilLamp: {fileID: 752365138}
 --- !u!4 &1283252290
