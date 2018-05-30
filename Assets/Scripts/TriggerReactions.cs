@@ -6,7 +6,11 @@ public class TriggerReactions : MonoBehaviour
 {
 
 	public AudioClip chairClip;
+	public AudioClip chairClip2;
+
 	public AudioClip lampClip;
+	public AudioClip lampClip2;
+
 	public GameObject chair;
 	public GameObject oilLamp;
 
@@ -16,8 +20,10 @@ public class TriggerReactions : MonoBehaviour
 	private Vector3 lastLocationOilLamp;
 	private Vector3 currentLocationOilLamp;
 
-	private AudioSource source;
+	public AudioSource source;
 	private float vol;
+
+	private int secLeftSound = 0;
 
 	private int nextUpdate = 1;
 
@@ -38,6 +44,7 @@ public class TriggerReactions : MonoBehaviour
 		if (Time.time >= nextUpdate) {
 			nextUpdate = Mathf.FloorToInt (Time.time) + 1;
 			UpdateEverySecond ();
+			soundsLeftPlaying ();
 		}
 	}
 
@@ -69,14 +76,39 @@ public class TriggerReactions : MonoBehaviour
 	}
 
 
-
 	void chairTriggered ()
 	{
-		source.PlayOneShot (chairSource, vol);
+		if (Random.value > 0.5) {
+			playSound (chairClip);
+		} else {
+			playSound (chairClip2);
+		}
 	}
 
 	void lampTriggered ()
 	{
-		source.PlayOneShot (lampSource, vol);
+		if (Random.value > 0.5) {
+			playSound (lampClip);
+		} else {
+			playSound (lampClip2);
+		}
+ 	}
+
+	void soundsLeftPlaying ()
+	{
+		if (secLeftSound > 0) {
+			secLeftSound = secLeftSound - 1;
+		}
+	}
+
+	void playSound (AudioClip clip)
+	{
+		if (source != null) {
+			if (source.isPlaying && secLeftSound < 5) {
+				source.PlayDelayed (secLeftSound);
+			} else if (!source.isPlaying) {
+				source.PlayOneShot (clip, vol);
+			}
+		}
 	}
 }
